@@ -20,7 +20,7 @@ framerate = 60
 
 #Initialize entity
 obj = MenuEntity(surfacedims, "tinyRhett.png", (surfacedims[0] / 2, surfacedims[1] / 2))
-
+ass = 10
 
 while True:
     #time = clock.tick(framerate) / 1000.0
