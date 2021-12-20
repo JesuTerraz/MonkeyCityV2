@@ -2,10 +2,10 @@ import pygame
 import random
 
 class MenuEntity:
-    def __init__(self, surfacedims, imagefile, pos=(0,0)):
+    def __init__(self, imagefile, pos=(0,0)):
         self.shape = pygame.image.load(imagefile)
-        self.raw_speed = (random.random(), random.random())
-        self.speed = [self.raw_speed[0], self.raw_speed[1]]
+        self.raw_speed = (random.random()*1, random.random()*1)
+        self.speed = [random.choice([-1, 1]) * self.raw_speed[0], random.choice([-1, 1]) * self.raw_speed[1]]
         self.update_coords(pos)
 
     def get_coords(self):
@@ -21,11 +21,11 @@ class MenuEntity:
     def move(self, surfacedims):
         if self.get_coords()[0] < 0 :
             self.speed[0] = self.raw_speed[0]
-        elif self.get_coords()[0] > surfacedims[0]:
+        elif self.get_coords()[0] > surfacedims[0] - self.shape.get_width():
             self.speed[0] = -self.raw_speed[0]
         if self.get_coords()[1] < 0:
             self.speed[1] = self.raw_speed[1]
-        elif self.get_coords()[1] > surfacedims[1]:
+        elif self.get_coords()[1] > surfacedims[1] - self.shape.get_height():
             self.speed[1] = -self.raw_speed[1]
         
         self.update_coords((self.left + self.speed[0], self.top + self.speed[1]))
