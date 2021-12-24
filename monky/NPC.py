@@ -179,6 +179,7 @@ class Human:
         self.damage = dmg
         self.attacks = 0
         self.range = rng
+        self.max_health = hp
         self.health = hp
         self.alive = True
         #self.in_air = False
@@ -193,6 +194,11 @@ class Human:
             surface.blit(self.image_RIGHT, self.get_coords().xy)
         else:
             surface.blit(self.image_LEFT, self.get_coords().xy)
+        pygame.draw.rect(surface, (255,0,0), (self.get_coords()[0], self.get_coords()[1] + self.image_LEFT.get_height(), self.max_health, 7)) 
+        pygame.draw.rect(surface, (0,128,0), (self.get_coords()[0], self.get_coords()[1] + self.image_LEFT.get_height(), self.health, 7))
+
+
+
 
     def update_coords(self, pos):
         self.position = pos
