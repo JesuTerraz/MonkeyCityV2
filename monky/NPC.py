@@ -172,19 +172,19 @@ class Entity:
         return close_enemy
 
 class Human:
-    def __init__(self, pos, imagefile, hp=100, rng=40, dmg=125):
+    def __init__(self, pos, imagefile, hp=100, rng=40, speed=(0.05, 0)):
         self.image_RIGHT = imagefile[0]
         self.image_LEFT = imagefile[1]
         self.face = True
-        self.damage = dmg
         self.attacks = 0
         self.range = rng
+        self.max_health = hp
         self.health = hp
         self.alive = True
         #self.in_air = False
         #self.starttime = None
         #self.initialy = pos[1]
-        self.speed = pygame.math.Vector2((.05, 0))
+        self.speed = pygame.math.Vector2(speed)
         #self.jump_speed = pygame.math.Vector2((0, 250))
         self.update_coords(pos)
     
@@ -193,6 +193,16 @@ class Human:
             surface.blit(self.image_RIGHT, self.get_coords().xy)
         else:
             surface.blit(self.image_LEFT, self.get_coords().xy)
+        self.draw_health_bar(surface, (self.get_coords()[0], self.get_coords()[1] + self.image_LEFT.get_height()), (50, 7), (0, 0, 0), (255, 0, 0), (0, 128, 0), self.health/self.max_health)  
+
+    def draw_health_bar(self, surface, pos, size, borderC, backC, healthC, progress):
+        pygame.draw.rect(surface, backC, (*pos, *size))
+        pygame.draw.rect(surface, borderC, (*pos, *size), 1)
+        innerPos  = (pos[0]+1, pos[1]+1)
+        innerSize = ((size[0]-2) * progress, size[1]-2)
+        rect = (round(innerPos[0]), round(innerPos[1]), round(innerSize[0]), round(innerSize[1]))
+        pygame.draw.rect(surface, healthC, rect)
+
 
     def update_coords(self, pos):
         self.position = pos
@@ -247,4 +257,18 @@ class Owen(Human):
         if distance < self.range and 0 <= self.attacks % 1800 <= dt:
             return VolleyBall(self.get_coords(), direction)
 
+
+# Melee enemy class
+class Matteo(Human):
+    def __init__(self, pos):
+        super().__init__(pos, (pygame.image.load('matteoright.png'), pygame.image.load('matteoleft.png')), 100, 40, (0.2, 0))
+    
+    def attack(self, monk:Monkey, dt):
+        direction = monk.get_coords() - self.get_coords()
+        distance = direction.magnitude()
+        direction.normalize_ip()
+        self.attacks += dt
+
+        if distance < self.range and 0 <= self.attacks % 900 <= dt:
+            monk.hurt(400)
 

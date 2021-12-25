@@ -79,14 +79,17 @@ while level_select:
                 level1 = True
                 #Create new background for level 1
                 #bg = pygame.image.load('playingField.png')
-                monk = Monkey(surfacedims, pygame.math.Vector2(center[0], surfacedims[1] - 60))
+
+                monk = Monkey(surfacedims, pygame.math.Vector2(center[0], surfacedims[1] - 70))
 
                 platforms = [Platform(pygame.math.Vector2((100, 280)), (255, 0, 0), pygame.math.Vector2(100, 10))]
                 platforms.append(Platform(pygame.math.Vector2((0, surfacedims[1])), (0, 0, 0), pygame.math.Vector2(surfacedims[0], 0)))
+
                 projectiles = []
                 humans = []
-                for _ in range(2):
-                    humans.append(Owen(random.choice([pygame.math.Vector2(0, surfacedims[1] - 40), pygame.math.Vector2(surfacedims[0] - 40, surfacedims[1] - 44)])))
+                humans.append(Owen(pygame.math.Vector2(0, surfacedims[1] - 50)))
+                humans.append(Owen(pygame.math.Vector2(surfacedims[0] - 40, surfacedims[1] - 50)))
+                humans.append(Matteo((pygame.math.Vector2(surfacedims[0] - 70, surfacedims[1] - 54))))
                 frame = 0
                 starttime = pygame.time.get_ticks()
 

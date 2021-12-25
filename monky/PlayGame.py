@@ -14,7 +14,7 @@ def play_humans(humans, monk, projectiles, screen, dt):
                 if volley != None:
                     projectiles.append(volley)
             else:
-                human.attack(monk)
+                human.attack(monk, dt)
         else:
             human_die.append(human)
     
