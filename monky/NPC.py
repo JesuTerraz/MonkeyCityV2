@@ -261,7 +261,7 @@ class Owen(Human):
 # Melee enemy class
 class Matteo(Human):
     def __init__(self, pos):
-        super().__init__(pos, (pygame.image.load('matteoright.png'), pygame.image.load('matteoleft.png')), 100, 40, (0.2, 0))
+        super().__init__(pos, (pygame.image.load('./resources/matteoright.png'), pygame.image.load('./resources/matteoleft.png')), 100, 40, (0.2, 0))
     
     def attack(self, monk:Monkey, dt):
         direction = monk.get_coords() - self.get_coords()
