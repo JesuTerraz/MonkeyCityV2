@@ -8,14 +8,15 @@ import random
 from Button import *
 from Monkey import *
 from PlayGame import *
+from Platform import *
 
 pygame.init()
 clock = pygame.time.Clock()
 
 #Menu
-bg = pygame.image.load('jungle.jpg')
+bg = pygame.image.load('./resources/jungle.jpg')
 surfacedims = (bg.get_width(), bg.get_height())
-center = (surfacedims[0] / 2, surfacedims[1] / 2)
+center = (surfacedims[0] // 2, surfacedims[1] // 2)
 screen = pygame.display.set_mode((surfacedims[0], surfacedims[1]))
 pygame.mouse.set_visible(True)
 pygame.display.set_caption('Monkey City')
@@ -26,11 +27,11 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 title = font.render('Welcome to Monkey City V2!', True, titlecolor)
 titleRect = title.get_rect()
 titleRect.center = (center[0], center[1] - 64)
-start_button = Button("startbutton1.png", "startbutton2.png", (center[0], center[1]))
+start_button = Button("./resources/startbutton1.png", "./resources/startbutton2.png", (center[0], center[1]))
 start = True
 
 #Character Showcase
-characters = ["tinyRhett.png", "tinyOzenwozen.png", "owenattackLEFT.png", "tinyJbcDemon.png"]
+characters = ["./resources/tinyRhett.png", "./resources/tinyOzenwozen.png", "./resources/owenattackLEFT.png", "./resources/tinyJbcDemon.png"]
 objects = []
 for _ in range(50):
     objects.append(MenuEntity(random.choice(characters), center))
@@ -62,8 +63,8 @@ while start:
 level_select = True
 levels = []
 for _ in range(4):
-    levels.append(Button("sad.monkey.jpg", "cool.monkey.jpg", (_ * surfacedims[0] / 4 + surfacedims[0] / 8, surfacedims[1] / 4)))
-    levels.append(Button("sad.monkey.jpg", "cool.monkey.jpg", (_ * surfacedims[0] / 4 + surfacedims[0] / 8, 3 * surfacedims[1] / 4)))
+    levels.append(Button("./resources/sad.monkey.jpg", "./resources/cool.monkey.jpg", (_ * surfacedims[0] / 4 + surfacedims[0] / 8, surfacedims[1] / 4)))
+    levels.append(Button("./resources/sad.monkey.jpg", "./resources/cool.monkey.jpg", (_ * surfacedims[0] / 4 + surfacedims[0] / 8, 3 * surfacedims[1] / 4)))
 
 while level_select:
     screen.blit(bg, (0,0))
@@ -78,7 +79,10 @@ while level_select:
                 level1 = True
                 #Create new background for level 1
                 #bg = pygame.image.load('playingField.png')
-                monk = Monkey(pygame.math.Vector2(center[0], surfacedims[1] - 60))
+                monk = Monkey(surfacedims, pygame.math.Vector2(center[0], surfacedims[1] - 60))
+
+                platforms = [Platform(pygame.math.Vector2((100, 280)), (255, 0, 0), pygame.math.Vector2(100, 10))]
+                platforms.append(Platform(pygame.math.Vector2((0, surfacedims[1])), (0, 0, 0), pygame.math.Vector2(surfacedims[0], 0)))
                 projectiles = []
                 humans = []
                 for _ in range(2):
@@ -102,9 +106,12 @@ while level_select:
                         if ban != None:
                             projectiles.append(ban)
 
-                    monk.move(pygame.key.get_pressed(), surfacedims, dt)
-                    monk.jump(pygame.key.get_pressed(), dt)
+                    monk.move(pygame.key.get_pressed(), dt)
+                    monk.jump(pygame.key.get_pressed(), platforms, dt)
                     monk.show(screen)
+
+                    for platform in platforms:
+                        platform.show(screen)
 
                     play_humans(humans, monk, projectiles, screen, dt)
                     play_projectiles(humans, monk, projectiles, screen, dt)

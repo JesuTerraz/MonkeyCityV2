@@ -236,7 +236,7 @@ class Human:
         
 class Owen(Human):
     def __init__(self, pos):
-        super().__init__(pos, (pygame.image.load('owenattackRIGHT.png'), pygame.image.load('owenattackLEFT.png')), 50, 180)
+        super().__init__(pos, (pygame.image.load('./resources/owenattackRIGHT.png'), pygame.image.load('./resources/owenattackLEFT.png')), 50, 180)
     
     def attack(self, monk:Monkey, dt):
         direction = monk.get_coords() - self.get_coords()
