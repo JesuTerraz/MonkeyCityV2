@@ -81,8 +81,9 @@ while level_select:
                 monk = Monkey(pygame.math.Vector2(center[0], surfacedims[1] - 70))
                 projectiles = []
                 humans = []
-                for _ in range(2):
-                    humans.append(Owen(random.choice([pygame.math.Vector2(0, surfacedims[1] - 50), pygame.math.Vector2(surfacedims[0] - 40, surfacedims[1] - 50)])))
+                humans.append(Owen(pygame.math.Vector2(0, surfacedims[1] - 50)))
+                humans.append(Owen(pygame.math.Vector2(surfacedims[0] - 40, surfacedims[1] - 50)))
+                humans.append(Matteo((pygame.math.Vector2(surfacedims[0] - 70, surfacedims[1] - 54))))
                 frame = 0
                 starttime = pygame.time.get_ticks()
 
