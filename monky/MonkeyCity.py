@@ -96,10 +96,7 @@ while level_select:
                 while level1:
                     screen.blit(bg, (0,0))
                     dt = clock.tick(100)
-                    #print(dt)
                     muse = pygame.math.Vector2(pygame.mouse.get_pos())
-                    #frame += 1
-                    #print(frame / ((pygame.time.get_ticks() + 1 - starttime) / 1000))
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             sys.exit()
@@ -108,10 +105,11 @@ while level_select:
                         ban = monk.throw(muse, dt)
                         if ban != None:
                             projectiles.append(ban)
-
-                    monk.move(pygame.key.get_pressed(), dt)
-                    monk.jump(pygame.key.get_pressed(), platforms, dt)
+                    
                     monk.show(screen)
+                    monk.move(pygame.key.get_pressed(), platforms, dt)
+                    monk.jump(pygame.key.get_pressed(), platforms, dt)
+                    
 
                     for platform in platforms:
                         platform.show(screen)

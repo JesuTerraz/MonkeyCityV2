@@ -181,11 +181,7 @@ class Human:
         self.max_health = hp
         self.health = hp
         self.alive = True
-        #self.in_air = False
-        #self.starttime = None
-        #self.initialy = pos[1]
         self.speed = pygame.math.Vector2(speed)
-        #self.jump_speed = pygame.math.Vector2((0, 250))
         self.update_coords(pos)
     
     def show(self, surface):
@@ -202,7 +198,6 @@ class Human:
         innerSize = ((size[0]-2) * progress, size[1]-2)
         rect = (round(innerPos[0]), round(innerPos[1]), round(innerSize[0]), round(innerSize[1]))
         pygame.draw.rect(surface, healthC, rect)
-
 
     def update_coords(self, pos):
         self.position = pos
