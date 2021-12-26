@@ -90,6 +90,7 @@ while level_select:
                 humans.append(Owen(pygame.math.Vector2(0, surfacedims[1] - 50)))
                 humans.append(Owen(pygame.math.Vector2(surfacedims[0] - 40, surfacedims[1] - 50)))
                 humans.append(Matteo((pygame.math.Vector2(surfacedims[0] - 70, surfacedims[1] - 54))))
+                humans.append(Sebby(pygame.math.Vector2(surfacedims[0] - 50, surfacedims[1] - 55)))
                 frame = 0
                 starttime = pygame.time.get_ticks()
 

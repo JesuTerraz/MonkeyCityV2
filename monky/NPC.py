@@ -3,7 +3,7 @@ import random
 import math
 
 from Monkey import Monkey
-from Projectile import VolleyBall
+from Projectile import VolleyBall, Chest
 
 class MenuEntity:
     def __init__(self, imagefile, pos=(0,0)):
@@ -267,3 +267,31 @@ class Matteo(Human):
         if distance < self.range and 0 <= self.attacks % 900 <= dt:
             monk.hurt(400)
 
+class Sebby(Human):
+    def __init__(self, pos):
+        super().__init__(pos, (pygame.image.load('./resources/sebbyright.png'), pygame.image.load('./resources/sebbyleft.png')), 100, 50, (0.1, 0))
+
+    def attack(self, monk:Monkey, dt):
+        direction = monk.get_coords() - self.get_coords()
+        distance = direction.magnitude()
+
+        if distance < self.range:
+            center = pygame.math.Vector2(self.get_coords()[0] + self.image_LEFT.get_width()/2, self.get_coords()[1] + self.image_LEFT.get_height()/2)
+            bullets = []
+            bullets.append(Chest(center, pygame.math.Vector2(0, 0.5)))
+            bullets.append(Chest(center, pygame.math.Vector2(0, -0.5)))
+            bullets.append(Chest(center, pygame.math.Vector2(0.5, 0)))
+            bullets.append(Chest(center, pygame.math.Vector2(-0.5, 0)))
+            bullets.append(Chest(center, pygame.math.Vector2(0.5, 0.5)))
+            bullets.append(Chest(center, pygame.math.Vector2(-0.5, 0.5)))
+            bullets.append(Chest(center, pygame.math.Vector2(0.5, -0.5)))
+            bullets.append(Chest(center, pygame.math.Vector2(-0.5, -0.5)))
+            
+            
+            
+            self.hurt(101)
+            return bullets
+            
+            
+            
+            

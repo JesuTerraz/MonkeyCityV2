@@ -46,3 +46,7 @@ class Banana(Projectile):
 class VolleyBall(Projectile):
     def __init__(self, pos, direction):
         super().__init__(pos, direction, 100, pygame.image.load('./resources/owenweapon.png'))
+
+class Chest(Projectile):
+    def __init__(self, pos, direction):
+        super().__init__(pos, direction, 200, pygame.image.load('./resources/BQC.png'))

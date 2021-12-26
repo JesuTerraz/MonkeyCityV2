@@ -13,6 +13,10 @@ def play_humans(humans, monk, projectiles, screen, dt):
                 volley = human.attack(monk, dt)
                 if volley != None:
                     projectiles.append(volley)
+            elif type(human) == Sebby:
+                bullets = human.attack(monk, dt)
+                if bullets != None:
+                    projectiles += bullets
             else:
                 human.attack(monk, dt)
         else:
@@ -28,6 +32,9 @@ def play_projectiles(humans, monk, projectiles, screen, dt):
             proj.move(dt)
             proj.show(screen)
             if type(proj) == VolleyBall and proj.hit(monk.get_hitbox()):
+                monk.hurt(proj.get_damage())
+                to_remove.append(proj)
+            if type(proj) == Chest and proj.hit(monk.get_hitbox()):
                 monk.hurt(proj.get_damage())
                 to_remove.append(proj)
             if type(proj) == Banana:
